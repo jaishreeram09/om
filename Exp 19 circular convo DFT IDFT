@@ -1,0 +1,19 @@
+Q1) Write python program to perform circular convolution of the given two sequences using DFT IDFT method.x1[n]={ 1,2,3,4} and x2[n]={ 3,5,3,5}Verify your answers by calculation.What is the difference between linear and circular convolution?
+
+code:
+import numpy as np
+# Define the sequences
+x1 = np.array([1, 2, 3, 4])
+x2 = np.array([3, 5, 3, 5])
+# Compute DFT of both sequences
+X1 = np.fft.fft(x1)
+X2 = np.fft.fft(x2)
+# Perform element-wise multiplication in the frequency domain
+Y = X1 * X2
+# Compute the Inverse DFT to get the circular convolution
+y = np.fft.ifft(Y)
+# we take the real part
+y = np.real(y)
+# Print the result
+print("Circular Convolution Result:", y)
+

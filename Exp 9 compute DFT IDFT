@@ -1,0 +1,13 @@
+Q1) Write python program to compute DFT and IDFT (without using inbuilt function) of 4- point sequence, x[n]={ 2,5,1,3}. Verify your answers by calculation. What is twiddle factor? What are its properties?
+
+code:
+#a - DFT & IDFT using fft,ifft
+from numpy.fft import fft,ifft
+x=[2,5,1,3]
+Xk = fft(x,4)
+print('\n x(n)= ',x)
+print('\n X(k)= ',Xk)
+xn=ifft(Xk,4)
+print('\n X(k)= ',Xk)
+print('\n x(n)=',xn)
+

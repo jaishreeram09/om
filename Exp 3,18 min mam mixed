@@ -1,0 +1,44 @@
+Q1) Write python program to plot pole zero diagram of following system. Identify the systems as minimum/maximum/mixed phase.
+(A transfer function will be given at the time of exam)
+
+code:
+import numpy as np
+import matplotlib.pyplot as plt
+#inputing N and D
+a=[4,1,-1]
+b=[1,0,0]
+poles=np.roots(b)
+zeros=np.roots(a)
+# Plot the pole-zero diagram
+plt.figure()
+# Plot the zeros and poles
+plt.scatter(np.real(zeros),np.imag(zeros),color='red',marker='o',label='Zeros')
+plt.scatter(np.real(poles),np.imag(poles),color='blue',marker='x',label='Poles')
+# Plot the unit circle
+unit_circle=plt.Circle((0,0),1,color='black',fill=False,linestyle='--',linewidth=1)
+plt.gca().add_artist(unit_circle)
+# Add axes lines
+plt.axvline(0,color='black',linewidth=0.5)
+plt.axhline(0,color='black',linewidth=0.5)
+# Set plot limits and labels 
+plt.xlim(-2,2)
+plt.ylim(-2,2)
+plt.xlabel('Real')
+plt.ylabel('Imaginary') 
+plt.title('pole-Zero Diagram with Unit Circle')
+plt.grid(True)
+plt.legend() 
+plt.gca().set_aspect('equal',adjustable='box')
+# Show the plot
+plt.show()
+# Determine whether the system is minimum-phase,maximum-phase,or mixed-phase
+inside_unit_circle=np.all(np.abs(zeros)<1)
+outside_unit_circle=np.all(np.abs(zeros)>1)
+if inside_unit_circle:
+    phase_type="Minimum Phase System"
+elif outside_unit_circle:
+    phase_type="Maximum Phase System"
+else:
+    phase_type="Mixed Phase System"
+print("The system is a",phase_type)                                                                              
+

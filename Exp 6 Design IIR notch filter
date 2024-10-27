@@ -1,0 +1,50 @@
+Q1) Design IIR NOTCH filter using polezero placement method.Write a python program to plot pole zero diagram and magnitude response of the same.
+
+code:
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.signal import freqz, zpk2tf
+# Notch filter specifications
+notch_freq = 0.3  
+r = 0.95  
+# Calculate zero and pole locations
+theta = 2 * np.pi * notch_freq
+zero = np.exp(1j * theta)  
+poles = [r * zero, r * np.conj(zero)] 
+# Generate coefficients of the filter from zeros and poles
+zeros = [zero, np.conj(zero)]
+b, a = zpk2tf(zeros, poles, 1)
+# Pole-zero plot
+def plot_pole_zero(b, a):
+    plt.figure(figsize=(6, 6))
+    # Plot unit circle for reference
+    unit_circle = plt.Circle((0, 0), 1, color='gray', fill=False, linestyle='--')
+    plt.gca().add_artist(unit_circle)
+    # Plot poles and zeros
+    poles = np.roots(a)
+    zeros = np.roots(b)
+    plt.scatter(np.real(zeros), np.imag(zeros), color='blue', marker='o', label='Zeros')
+    plt.scatter(np.real(poles), np.imag(poles), color='red', marker='x', label='Poles')
+    plt.xlabel('Real Part')
+    plt.ylabel('Imaginary Part')
+    plt.title('Pole-Zero Diagram')
+    plt.axhline(0, color='black', lw=0.5)
+    plt.axvline(0, color='black', lw=0.5)
+    plt.legend()
+    plt.grid()
+    plt.axis('equal')
+    plt.show()
+# Magnitude response plot
+def plot_magnitude_response(b, a):
+    w, h = freqz(b, a, worN=1024)
+    plt.figure(figsize=(10, 5))
+    plt.plot(w / np.pi, 20 * np.log10(np.abs(h)), color='blue')
+    plt.title('Magnitude Response of Notch Filter')
+    plt.xlabel('Normalized Frequency (×π rad/sample)')
+    plt.ylabel('Magnitude (dB)')
+    plt.grid()
+    plt.show()
+# Plot the pole-zero diagram and magnitude response
+plot_pole_zero(b, a)
+plot_magnitude_response(b, a)

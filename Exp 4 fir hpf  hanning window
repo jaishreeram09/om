@@ -1,0 +1,30 @@
+Q.1) Write python program to design FIR HPF with cutoff frequency pi/2 and length N=11 using rectangular and Hanning window.Plot the designed filter characteristics.
+Verify the filter coefficients (h[n]) by calculation.
+
+code:
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.signal as signal
+N=11
+b1=signal.firwin(N,cutoff=0.5,window="rectangular",pass_zero=False)
+b2=signal.firwin(N,cutoff=0.5,window="hann",pass_zero=False)
+a=1
+w1,h1=signal.freqz(b1,a)
+h1_dB=20*np.log10(abs(h1))
+w2,h2=signal.freqz(b2,a)
+h2_dB=20*np.log10(abs(h2))
+plt.figure(figsize=(10,6))
+plt.plot(w1/max(w1),h1_dB,color='black',label="Rectangular Window")
+plt.plot(w2/max(w2),h2_dB,color="red",label="Hann Window")
+plt.grid()
+plt.ylim(-150, 5)
+plt.ylabel('Magnitude (dB)')
+plt.xlabel('Normalized Frequency (rad/sample)')
+plt.title('Frequency Response of high-Pass FIR Filter with Different Windows')
+plt.legend()
+plt.show()
+b1 = np.float16(b1)
+b2 = np.float16(b2)
+print("\nImpulse response coefficients using Rectangular window:\n", b1)
+print("\nImpulse response coefficients using Hann window:\n", b2)
+

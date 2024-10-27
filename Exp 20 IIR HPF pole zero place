@@ -1,0 +1,41 @@
+Q1) Design IIR HPF using pole zero placement method.Write python program to plot pole zero diagram and magnitude response of the same.
+
+code:
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.signal import freqz
+#Input the numerator and denominator coefficients
+a=[1,0]   
+b=[1,-0.8]    
+#Compute the poles and zeros
+zeros = np.roots(a) 
+poles = np.roots(b)
+#plot the pole-zero diagram
+plt.figure(figsize=(10,5))
+#plot zeros and poles
+plt.subplot(1,2,1)
+plt.scatter(np.real(zeros),np.imag(zeros),color='red',marker='o',label='Zeros')
+plt.scatter(np.real(poles), np.imag(poles), color='blue', marker='x', label='Poles')
+#Plot the unit circle
+theta = np.linspace(0, 2*np.pi, 100)
+plt.plot(np.cos(theta), np.sin(theta), linestyle='--', color='black') #Added this line for unit circle
+plt.axvline(0, color='black', linewidth=0.5)
+plt.axhline(0, color='black', linewidth=0.5) 
+plt.title('Pole-Zero Diagram')
+plt.xlabel('Real')
+plt.ylabel('Imaginary')
+plt.grid(True)
+plt.legend()
+#Compute the frequency response (magnitude)
+w, h = freqz(a, b)
+#Plot magnitude response
+plt.subplot(1, 2, 2)
+plt.plot(w/np.pi, np.abs(h))
+plt.title('Magnitude Response')
+plt.xlabel('Normalized Frequency(xπ rad/sample')
+plt.ylabel('Magnitude')
+plt.grid(True)
+#Show plots
+plt.tight_layout()
+plt.show()
+

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Prompt the user for input
+echo "Enter an integer:"
+read number
+
+# Validate input: must be an integer (positive or negative)
+if ! [[ "$number" =~ ^-?[0-9]+$ ]]; then
+    echo "Invalid input. Please enter a valid integer."
+    exit 1
+fi
+
+# Remove negative sign for digit count
+abs_number=${number#-}
+
+# Get the number of digits
+digit_count=${#abs_number}
+
+# Use case to determine the digit category
+case $digit_count in
+    1)
+        echo "It is a single-digit number."
+        ;;
+    2)
+        echo "It is a double-digit number."
+        ;;
+    3)
+        echo "It is a three-digit number."
+        ;;
+    4)
+        echo "It is a four-digit number."
+        ;;
+    *)
+        echo "It is more than four digits."
+        ;;
+esac

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+echo "===== System Configuration Info ====="
+
+# Currently logged-in user
+echo "Current User: $(whoami)"
+
+# Login name (if different, sometimes same as whoami)
+echo "Login Name: $LOGNAME"
+
+# Current shell
+echo "Current Shell: $SHELL"
+
+# Home directory
+echo "Home Directory: $HOME"
+
+# Operating System Type
+echo "Operating System Type: $(uname -o)"
+
+# Current PATH setting
+echo "Current PATH: $PATH"
+
+# Current working directory
+echo "Current Working Directory: $(pwd)"
+
+echo "======================================"

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Display a heading
+echo "List of all user account names on this system:"
+
+# Extract usernames from /etc/passwd
+cut -d: -f1 /etc/passwd

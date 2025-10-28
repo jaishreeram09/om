@@ -1,0 +1,17 @@
+transmit_power=30;
+frequency=900e6;
+antenna_height_t=40;
+antenna_height_r=10;
+d=1:1:1000;
+free_space_path_loss=(20*log10(d))+20*log10(frequency)-147.55;
+two_ray_ground_path_loss=(40*log10(d))+20*log10(antenna_height_t)+log10(antenna_height_r)+20*log10(frequency)-147.55;
+figure;
+plot(d,free_space_path_loss,'b','DisplayName','Free space path loss');
+hold on;
+plot(d,two_ray_ground_path_loss,'r','DisplayName','Two ray ground path loss');
+xlabel('Distance(m)');
+ylabel('Path loss(dB)');
+title('Effect of propogation model on coverage distance');
+legend;
+grid on;
+hold off;

@@ -1,0 +1,17 @@
+clc;
+clear all;
+r = 0:0.001:10;
+sigma = sqrt(0.2);
+A=1;
+rayleigh_pdf = (r./sigma^2) .* exp(-r.^2/ (2*sigma^2));
+ricean_pdf = (r./sigma^2) .* exp(-(r.^2 + A^2)/(2*sigma^2)).* besseli(0, r*A/sigma^2);
+figure;
+plot(r, rayleigh_pdf, 'r-', 'LineWidth', 2);
+hold on;
+plot(r, ricean_pdf, 'b-', 'LineWidth', 2);
+hold off;
+xlabel('r');
+ylabel('Probability Density');
+title('Rayleigh & Rician Distributions');
+legend('Rayleigh Distribution','Rician Distribution');
+grid on;

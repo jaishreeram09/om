@@ -1,0 +1,45 @@
+clc; clear all;
+C_values = [1, 2, 5, 10, 50, 100];
+A = 0:1:150;
+colors = ['r','g','b','m','c','k'];
+% ----- ERLANG B -----
+figure;
+hold on;
+for idx = 1:length(C_values)
+C = C_values(idx);
+P = zeros(size(A));
+for k = 1:length(A)
+numerator = (A(k)^C)/factorial(C);
+denominator = sum(A(k).^(0:C) ./ factorial(0:C));
+P(k) = numerator / denominator;
+end
+plot(A, P, [colors(idx) '-'], 'DisplayName', ['C = ' num2str(C)], 'LineWidth', 2);
+end
+xlabel('Tra ic Intensity A (Erlangs)');
+ylabel('Blocking Probability P');
+title('Erlang B: Blocked Call Cleared for Various C');
+legend show;
+grid on;
+% ----- ERLANG C -----
+figure;
+hold on;
+for idx = 1:length(C_values)
+C = C_values(idx);
+P = zeros(size(A));
+for k = 1:length(A)
+if A(k) < C
+sumC = sum(A(k).^(0:C-1) ./ factorial(0:C-1));
+numerator = (A(k)^C / factorial(C)) * (C / (C - A(k)));
+denominator = sumC + numerator;
+P(k) = numerator / denominator;
+else
+P(k) = NaN;
+end
+end
+plot(A, P, [colors(idx) '-'], 'DisplayName', ['C = ' num2str(C)], 'LineWidth', 2);
+end
+xlabel('Tra ic Intensity A (Erlangs)');
+ylabel('Blocking Probability P');
+title('Erlang C: Blocked Call Delayed for Various C');
+legend show;
+grid on;
